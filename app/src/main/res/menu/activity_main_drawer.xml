@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_login"
+            android:title="@string/Login" />
+        <item
+            android:id="@+id/nav_register"
+            android:title="@string/register" />
+        <item
+            android:id="@+id/nav_search"
+            android:title="@string/search" />
+        <item
+            android:id="@+id/nav_all_station"
+            android:title="@string/all_station" />
+        <item
+            android:id="@+id/nav_feedback"
+            android:title="@string/str_feedback" />
+        <item
+            android:id="@+id/nav_about"
+            android:title="@string/str_about" />
+    </group>
+</menu>
