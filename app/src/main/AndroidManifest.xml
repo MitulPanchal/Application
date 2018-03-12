@@ -47,8 +47,8 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".FeedActivity" />
         <activity android:name=".AboutActivity" />
-        <activity android:name=".StationActivity" />
         <activity android:name=".ConnectActivity" />
+        <activity android:name=".StationActivity"></activity>
     </application>
 
 </manifest>
