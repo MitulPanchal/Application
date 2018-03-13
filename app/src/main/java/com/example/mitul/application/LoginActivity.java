@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText email = findViewById(R.id.editTextEmail);
         final EditText password = findViewById(R.id.editTextPassword);
         final Button buttonLogin = findViewById(R.id.buttonSignIn);
-        final TextView textViewSignUp = findViewById(R.id.textViewSignIn);
+        final TextView textViewSignUp = findViewById(R.id.textViewSignUp);
 
         databaseHelper  = new DatabaseHelper(LoginActivity.this);
 
@@ -50,6 +50,13 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(LoginActivity.this, "Email or Password Incorrect", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+        
+        textViewSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }
