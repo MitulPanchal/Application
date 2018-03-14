@@ -50,7 +50,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 if(_source_.equals(source) && _destination_.equals(destination)) {
                     Toast.makeText(SearchActivity.this, "Route Found", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+                    Intent intent = new Intent(SearchActivity.this, RouteActivity.class);
                     startActivity(intent);
                 }
                 else {

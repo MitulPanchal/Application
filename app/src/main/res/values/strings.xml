@@ -28,4 +28,5 @@
     <string name="submit">Submit</string>
     <string name="username">Mitul Panchal</string>
     <string name="email">imitulpanchal@gmail.com</string>
+    <string name="fare">Total Fare : </string>
 </resources>

@@ -77,5 +77,4 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         sqLiteDatabase.close();
         return _password_;
     }
-
 }
