@@ -49,7 +49,8 @@
         <activity android:name=".AboutActivity" />
         <activity android:name=".ConnectActivity" />
         <activity android:name=".StationActivity" />
-        <activity android:name=".RouteActivity"></activity>
+        <activity android:name=".RouteActivity" />
+        <activity android:name=".FareActivity"></activity>
     </application>
 
 </manifest>

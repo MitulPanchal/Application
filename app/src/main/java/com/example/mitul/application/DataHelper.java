@@ -86,8 +86,6 @@ public class DataHelper extends SQLiteOpenHelper {
         sqLiteDatabase = SQLiteDatabase.openDatabase(myPATH, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
-
-
     public List<StationInfo> getAllStation(){
         List<StationInfo> temp = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -128,7 +126,6 @@ public class DataHelper extends SQLiteOpenHelper {
         return _sourceStation;
     }
 
-
     public String destinationStation(String _destinationStation_){
         sqLiteDatabase = this.getReadableDatabase();
         String query = "select destination_station from route";
@@ -153,6 +150,47 @@ public class DataHelper extends SQLiteOpenHelper {
         super.close();
 
     }
+
+    public String longitudeStation(String _StationName_){
+        sqLiteDatabase = this.getReadableDatabase();
+        String query = "select station_name,longitude from station";
+        Cursor cursor = sqLiteDatabase.rawQuery(query,null);
+
+        String _longitudeStation = null;
+        String _StationName;
+        if(cursor.moveToFirst()){
+            do{
+                _StationName = cursor.getString(0);
+                if(_StationName.equals(_StationName_)){
+                    _longitudeStation = cursor.getString(1);
+                    break;
+                }
+            }while(cursor.moveToNext());
+        }
+        sqLiteDatabase.close();
+        return _longitudeStation;
+    }
+
+    public String latitudeStation(String _StationName_){
+        sqLiteDatabase = this.getReadableDatabase();
+        String query = "select station_name,latitude from station";
+        Cursor cursor = sqLiteDatabase.rawQuery(query,null);
+
+        String _latitudeStation = null;
+        String _StationName;
+        if(cursor.moveToFirst()){
+            do{
+                _StationName = cursor.getString(0);
+                if(_StationName.equals(_StationName_)){
+                    _latitudeStation = cursor.getString(1);
+                    break;
+                }
+            }while(cursor.moveToNext());
+        }
+        sqLiteDatabase.close();
+        return _latitudeStation;
+    }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {

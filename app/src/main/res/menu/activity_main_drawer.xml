@@ -17,6 +17,9 @@
             android:id="@+id/nav_all_station"
             android:title="@string/all_station" />
         <item
+            android:id="@+id/fare"
+            android:title="Fare"/>
+        <item
             android:id="@+id/nav_feedback"
             android:title="@string/str_feedback" />
         <item
