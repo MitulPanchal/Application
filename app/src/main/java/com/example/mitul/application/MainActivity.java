@@ -78,19 +78,19 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (googleSearviceAvailable()) {
+        if (googleServiceAvailable()) {
             init();
         } else {
             //no layout
         }
     }
 
-    private void init() {
+    public void init() {
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
         mapFragment.getMapAsync(this);
     }
 
-    public boolean googleSearviceAvailable() {
+    public boolean googleServiceAvailable() {
         GoogleApiAvailability api = GoogleApiAvailability.getInstance();
         int isAvailable = api.isGooglePlayServicesAvailable(this);
         if (isAvailable == ConnectionResult.SUCCESS) {
@@ -174,6 +174,11 @@ public class MainActivity extends AppCompatActivity
                 Intent intentAbout = new Intent(this, AboutActivity.class);
                 startActivity(intentAbout);
                 break;
+
+            case R.id.fare:
+                Intent intentFare = new Intent(this, FareActivity.class);
+                startActivity(intentFare);
+                break;
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -225,6 +230,29 @@ public class MainActivity extends AppCompatActivity
         LatLng station5 = new LatLng(21.183424,72.830657);
         mGoogleMap.addMarker(new MarkerOptions().position(station5).title("Udhna Darwaja"));
 
+        LatLng stayion6 = new LatLng(21.144093, 72.848720);
+        mGoogleMap.addMarker(new MarkerOptions().position(stayion6).title("Udhna"));
+
+        LatLng station7 = new LatLng(21.148576, 72.806491);
+        mGoogleMap.addMarker(new MarkerOptions().position(station7).title("Althan"));
+
+        LatLng station8 = new LatLng(21.159302, 72.774219);
+        mGoogleMap.addMarker(new MarkerOptions().position(station8).title("Piplod"));
+
+        LatLng station9 = new LatLng(21.145694, 72.759113);
+        mGoogleMap.addMarker(new MarkerOptions().position(station9).title("V.R.Mall"));
+
+        LatLng station10 = new LatLng(21.229404, 72.833270);
+        mGoogleMap.addMarker(new MarkerOptions().position(station10).title("Katargam"));
+
+        LatLng station11 = new LatLng(21.192596, 72.801856);
+        mGoogleMap.addMarker(new MarkerOptions().position(station11).title("Adajan"));
+
+        LatLng station12 = new LatLng(21.206324, 72.849549);
+        mGoogleMap.addMarker(new MarkerOptions().position(station12).title("Varaccha"));
+
+        LatLng station13 = new LatLng(21.198078, 72.829923);
+        mGoogleMap.addMarker(new MarkerOptions().position(station13).title("Chowk Bazar"));
     }
 
     LocationRequest mLocationRequest;

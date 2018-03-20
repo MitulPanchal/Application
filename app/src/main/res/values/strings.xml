@@ -28,4 +28,9 @@
     <string name="submit">Submit</string>
     <string name="username">Mitul Panchal</string>
     <string name="email">imitulpanchal@gmail.com</string>
+    <string name="fare">Total Fare : </string>
+    <string name="ss">Source : </string>
+    <string name="dd">Destination : </string>
+    <string name="fare_calc">Fare calculator</string>
+    <string name="calculate">calculate</string>
 </resources>
