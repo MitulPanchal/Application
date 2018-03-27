@@ -10,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,16 +28,27 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-public class RouteActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class RouteActivity extends AppCompatActivity
+        implements OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener,
+        GoogleMap.OnMarkerClickListener,
+        GoogleMap.OnMarkerDragListener{
 
+    int PROXIMITY_RADIUS = 10000;
+    double latitude, longitude;
     DataHelper dataHelper;
     LocationRequest mLocationRequest;
     GoogleMap mGoogleMap;
     GoogleApiClient mGoogleApiClient;
 
+    double longitudeSource,latitudeSource;
+    double end_latitude, end_longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +84,7 @@ public class RouteActivity extends AppCompatActivity implements OnMapReadyCallba
         Intent intent = getIntent();
         String source = intent.getExtras().getString("source");
         String destination = intent.getExtras().getString("destination");
-
+        Object[] dataTransfer = new Object[2];
 
         TextView textView1 = (TextView) findViewById(R.id.textViewDes);
         TextView textView2 = (TextView) findViewById(R.id.textViewSou);
@@ -93,6 +105,7 @@ public class RouteActivity extends AppCompatActivity implements OnMapReadyCallba
         mGoogleMap.setMyLocationEnabled(true);
         Location location = new Location("");
         LatLng my = new LatLng(location.getLatitude(),location.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(my, 13);
         mGoogleMap.moveCamera(cameraUpdate);
@@ -103,15 +116,54 @@ public class RouteActivity extends AppCompatActivity implements OnMapReadyCallba
                 addOnConnectionFailedListener(this).
                 build();
         mGoogleApiClient.connect();
-        /*
-        int longitudeSource =Integer.parseInt( dataHelper.longitudeStation(source));
-        int LatitudeSource =Integer.parseInt(dataHelper.latitudeStation(destination));
-        int longitudeDestination = Integer.parseInt(dataHelper.longitudeStation(destination));
-        int latitudeStation = Integer.parseInt(dataHelper.latitudeStation(destination));
 
-        LatLng marker = new LatLng(LatitudeSource,longitudeSource);
-        mGoogleMap.addMarker(new MarkerOptions().position(marker));
-        */
+        longitudeSource = 72.830657; //dataHelper.longitudeStation(source);
+        latitudeSource = 21.183424;//dataHelper.latitudeStation(source);
+        end_longitude = 72.840729 ;//dataHelper.longitudeStation(destination);
+        end_latitude = 21.205138;//dataHelper.latitudeStation(destination);
+
+        LatLng sStation = new LatLng(latitudeSource,longitudeSource);
+        mGoogleMap.addMarker(new MarkerOptions().position(sStation));
+
+        float results[] = new float[10];
+        Location.distanceBetween(latitudeSource,longitudeSource,end_latitude,end_longitude,results);
+        TextView textView4 = (TextView) findViewById(R.id.textView4);
+        markerOptions.position(new LatLng(end_latitude,end_longitude));
+        markerOptions.title("Destination");
+        markerOptions.snippet("Distance: " +results[0]/1000 + "km" );
+        mGoogleMap.addMarker(markerOptions);
+        String distance = String.valueOf(results[0]/1000);
+        textView4.setText(distance+ " km");
+
+        dataTransfer = new Object[3];
+        String url = getDirectionsUrl();
+        GetDirectionData getDirectionData = new GetDirectionData();
+        dataTransfer[0] = mGoogleMap;
+        dataTransfer[1] = url;
+        dataTransfer[2] = new LatLng(end_latitude,end_longitude);
+        getDirectionData.execute(dataTransfer);
+    }
+
+    private String getDirectionsUrl()
+    {
+        StringBuilder googleDirectionsUrl = new StringBuilder("https://maps.googleapis.com/maps/api/directions/json?");
+        googleDirectionsUrl.append("origin="+latitude+","+longitude);
+        googleDirectionsUrl.append("&destination="+end_latitude+","+end_longitude);
+        googleDirectionsUrl.append("&key="+"AIzaSyCAcfy-02UHSu2F6WeQ1rhQhkCr51eBL9g");
+
+        return googleDirectionsUrl.toString();
+    }
+
+    private String getUrl(double latitude, double longitude, String nearbyPlace)
+    {
+        StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+        googlePlacesUrl.append("location=" + latitude + "," + longitude);
+        googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
+        googlePlacesUrl.append("&type=" + nearbyPlace);
+        googlePlacesUrl.append("&sensor=true");
+        googlePlacesUrl.append("&key=" + "AIzaSyBj-cnmMUY21M0vnIKz0k3tD3bRdyZea-Y");
+        Log.d("getUrl", googlePlacesUrl.toString());
+        return (googlePlacesUrl.toString());
     }
 
     @Override
@@ -133,7 +185,7 @@ public class RouteActivity extends AppCompatActivity implements OnMapReadyCallba
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
         LatLng surat = new LatLng(21.1702, 72.8311);
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(surat, 11);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(surat, 12);
         mGoogleMap.moveCamera(cameraUpdate);
     }
 
@@ -149,6 +201,26 @@ public class RouteActivity extends AppCompatActivity implements OnMapReadyCallba
 
     @Override
     public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        return false;
+    }
+
+    @Override
+    public void onMarkerDragStart(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDrag(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDragEnd(Marker marker) {
 
     }
 }

@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,12 +21,19 @@ public class FareActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fare);
 
 
-        final EditText ss = findViewById(R.id.editTextS);
-        final EditText ds = findViewById(R.id.editTextD);
+        final AutoCompleteTextView ss = findViewById(R.id.editTextS);
+        final AutoCompleteTextView ds = findViewById(R.id.editTextD);
         Button button = findViewById(R.id.buttonCalculate);
         final TextView textView1 = (TextView) findViewById(R.id.textViewFare);
-        TextView textView2 = (TextView) findViewById(R.id.textViewFareCalc);
+        //TextView textView2 = (TextView) findViewById(R.id.textViewFareCalc);
         final String temp = "Calculated Fare is: ";
+
+        String[] COUNTRIES ={"Bus Station","Udhna Darwaja","Majura Gate","Bhestan","Athwa Gate","Sachin","Katargam",
+                "Ghajera Circle","Prime Arcade","Vesu","Bhagad","Chawk Bazar","Navsari Bazar","Nanpura","Bhatar","Vesu","V.R.Mall",
+                "Piplod","AmbikaniKetan","Univercity Road","Sahara Darwaja","SVNIT","Railway Station"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, COUNTRIES);
+        ss.setAdapter(adapter);
+        ds.setAdapter(adapter);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,11 +51,17 @@ public class FareActivity extends AppCompatActivity {
                     return;
                 }
 
-                String _abc_ = dataHelper.sourceStation(source);
-                String _def_ = dataHelper.destinationStation(destination);
+                String _source_ = null;
+                _source_ = dataHelper.sourceStation(source);
+                String _destination_ = null;
+                _destination_ = dataHelper.destinationStation(destination);
 
-                if(_abc_.equals(source) && _def_.equals(destination)) {
-                    Toast.makeText(FareActivity.this, "Fare Calculated", Toast.LENGTH_LONG).show();
+                if(_source_.equals(source) && _destination_.equals(destination)) {
+                    Toast.makeText(FareActivity.this, "Route Found", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(FareActivity.this, RouteActivity.class);
+                    intent.putExtra("source", source);
+                    intent.putExtra("destination", destination);
+                    startActivity(intent);
                 }
                 else {
                     Toast.makeText(FareActivity.this, "Route not Found", Toast.LENGTH_LONG).show();
