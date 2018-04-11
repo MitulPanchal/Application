@@ -28,7 +28,7 @@
             android:textAlignment="center"
             android:textSize="@dimen/font_custom" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/editTextSource"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             android:hint="@string/sou_station"
             android:inputType="text" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/editTextDestination"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

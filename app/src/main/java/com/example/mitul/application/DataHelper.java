@@ -108,6 +108,23 @@ public class DataHelper extends SQLiteOpenHelper {
         return temp;
     }
 
+
+    public String[] AllStation(){
+        sqLiteDatabase = this.getReadableDatabase();
+        String[] stationList  = null;
+        String query = "select station_name from station";
+        Cursor cursor = sqLiteDatabase.rawQuery(query,null);
+
+        if(cursor.moveToFirst()){
+            int i=0;
+            do{
+                stationList[i] = cursor.getString(0);
+                i++;
+            }while (cursor.moveToNext());
+        }
+        return stationList;
+    }
+
     public String sourceStation(String _sourceStation_){
         sqLiteDatabase = this.getReadableDatabase();
         String query = "select source_station from route";
@@ -151,18 +168,18 @@ public class DataHelper extends SQLiteOpenHelper {
 
     }
 
-    public String longitudeStation(String _StationName_){
+    public int longitudeStation(String _StationName_){
         sqLiteDatabase = this.getReadableDatabase();
         String query = "select station_name,longitude from station";
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
 
-        String _longitudeStation = null;
+        int _longitudeStation = 0;
         String _StationName;
         if(cursor.moveToFirst()){
             do{
                 _StationName = cursor.getString(0);
                 if(_StationName.equals(_StationName_)){
-                    _longitudeStation = cursor.getString(1);
+                    _longitudeStation = cursor.getInt(1);
                     break;
                 }
             }while(cursor.moveToNext());
@@ -171,18 +188,18 @@ public class DataHelper extends SQLiteOpenHelper {
         return _longitudeStation;
     }
 
-    public String latitudeStation(String _StationName_){
+    public int latitudeStation(String _StationName_){
         sqLiteDatabase = this.getReadableDatabase();
         String query = "select station_name,latitude from station";
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
 
-        String _latitudeStation = null;
+        int _latitudeStation = 0;
         String _StationName;
         if(cursor.moveToFirst()){
             do{
                 _StationName = cursor.getString(0);
                 if(_StationName.equals(_StationName_)){
-                    _latitudeStation = cursor.getString(1);
+                    _latitudeStation = cursor.getInt(1);
                     break;
                 }
             }while(cursor.moveToNext());

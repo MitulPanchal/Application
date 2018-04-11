@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity
         LatLng station5 = new LatLng(21.183424,72.830657);
         mGoogleMap.addMarker(new MarkerOptions().position(station5).title("Udhna Darwaja"));
 
-        LatLng stayion6 = new LatLng(21.144093, 72.848720);
+            LatLng stayion6 = new LatLng(21.144093, 72.848720);
         mGoogleMap.addMarker(new MarkerOptions().position(stayion6).title("Udhna"));
 
         LatLng station7 = new LatLng(21.148576, 72.806491);
