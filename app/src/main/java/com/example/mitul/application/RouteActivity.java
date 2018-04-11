@@ -3,6 +3,7 @@ package com.example.mitul.application;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mitul.application.api.directionapi.DirectionClient;
+import com.example.mitul.application.api.directionapi.response.GoogleDirectionResponse;
+import com.example.mitul.application.api.directionapi.response.Route;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -30,7 +34,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RouteActivity extends AppCompatActivity
         implements OnMapReadyCallback,
@@ -135,13 +149,82 @@ public class RouteActivity extends AppCompatActivity
         String distance = String.valueOf(results[0]/1000);
         textView4.setText(distance+ " km");
 
-        dataTransfer = new Object[3];
-        String url = getDirectionsUrl();
-        GetDirectionData getDirectionData = new GetDirectionData();
-        dataTransfer[0] = mGoogleMap;
-        dataTransfer[1] = url;
-        dataTransfer[2] = new LatLng(end_latitude,end_longitude);
-        getDirectionData.execute(dataTransfer);
+       drawline(latitudeSource+","+longitudeSource, end_latitude+","+end_longitude);
+    }
+
+    private void drawline(String origin, String destination) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://maps.googleapis.com/maps/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        DirectionClient myClient = retrofit.create(DirectionClient.class);
+
+        Call<GoogleDirectionResponse> call = myClient.getDirections(origin, destination, "AIzaSyCAcfy-02UHSu2F6WeQ1rhQhkCr51eBL9g");
+
+        call.enqueue(new Callback<GoogleDirectionResponse>() {
+            @Override
+            public void onResponse(Call<GoogleDirectionResponse> call, Response<GoogleDirectionResponse> response) {
+                Log.e("Response", "Yes");
+
+                GoogleDirectionResponse directionResponse = response.body();
+                List<Route> routes = directionResponse.getRoutes();
+                for (int i =0; i<routes.size(); i++){
+                    String distance = routes.get(i).getLegs().get(i).getDistance().getText();
+                    Log.e("Distance", distance);
+                    String time = routes.get(i).getLegs().get(i).getDuration().getText();
+                    String poly = routes.get(0).getOverviewPolyline().getPoints();
+                    List<LatLng> latLngList = decodePoly(poly);
+                    Polyline polyline = mGoogleMap.addPolyline(new PolylineOptions()
+                            .addAll(latLngList)
+                            .width(10)
+                            .color(Color.RED)
+                            .geodesic(true));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GoogleDirectionResponse> call, Throwable t) {
+                Log.e("Response", "No");
+                Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private List<LatLng> decodePoly(String encoded) {
+
+        List<LatLng> poly = new ArrayList<LatLng>();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng((((double) lat / 1E5)),
+                    (((double) lng / 1E5)));
+            poly.add(p);
+        }
+
+        return poly;
     }
 
     private String getDirectionsUrl()
