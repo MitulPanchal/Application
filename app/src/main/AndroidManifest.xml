@@ -42,15 +42,14 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".FeedActivity" />
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".ConnectActivity" />
-        <activity android:name=".StationActivity" />
-        <activity android:name=".RouteActivity" />
-        <activity android:name=".FareActivity"></activity>
+        <activity android:name=".LoginActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".RegisterActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".SearchActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".FeedActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AboutActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".StationActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".RouteActivity" android:parentActivityName=".SearchActivity"/>
+        <activity android:name=".FareActivity" android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         final Button buttonLogin = findViewById(R.id.buttonSignIn);
         final TextView textViewSignUp = findViewById(R.id.textViewSignUp);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         databaseHelper  = new DatabaseHelper(LoginActivity.this);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {

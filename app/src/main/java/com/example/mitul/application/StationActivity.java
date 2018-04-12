@@ -19,6 +19,8 @@ public class StationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 /*
         stationData = dataHelper.getAllStation();
         int i=0;

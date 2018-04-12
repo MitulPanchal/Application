@@ -29,6 +29,8 @@ public class SearchActivity extends AppCompatActivity {
         final AutoCompleteTextView destinationStation= findViewById(R.id.editTextDestination);
         final Button search = findViewById(R.id.buttonSearch);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         String[] COUNTRIES ={"Bus Station","Udhna Darwaja","Majura Gate","Bhestan","Athwa Gate","Sachin","Katargam",
                 "Ghajera Circle","Prime Arcade","Vesu","Bhagad","Chawk Bazar","Navsari Bazar","Nanpura","Bhatar","Vesu","V.R.Mall",
                 "Piplod","AmbikaniKetan","Univercity Road","Sahara Darwaja","SVNIT","Railway Station"};
