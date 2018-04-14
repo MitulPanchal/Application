@@ -68,6 +68,7 @@ public class RouteActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (googleServiceAvailable()) {
             init();
         }

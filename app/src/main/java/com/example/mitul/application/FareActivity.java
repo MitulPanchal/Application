@@ -28,6 +28,8 @@ public class FareActivity extends AppCompatActivity {
         //TextView textView2 = (TextView) findViewById(R.id.textViewFareCalc);
         final String temp = "Calculated Fare is: ";
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         String[] COUNTRIES ={"Bus Station","Udhna Darwaja","Majura Gate","Bhestan","Athwa Gate","Sachin","Katargam",
                 "Ghajera Circle","Prime Arcade","Vesu","Bhagad","Chawk Bazar","Navsari Bazar","Nanpura","Bhatar","Vesu","V.R.Mall",
                 "Piplod","AmbikaniKetan","Univercity Road","Sahara Darwaja","SVNIT","Railway Station"};

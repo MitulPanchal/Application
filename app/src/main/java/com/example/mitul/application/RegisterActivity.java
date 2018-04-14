@@ -25,6 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText password = findViewById(R.id.editPassword);
         final EditText confirmPassowrd = findViewById(R.id.editConfirmPassword);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final Button buttonRegister = findViewById(R.id.buttonRegister);
         final TextView textViewSingIn = findViewById(R.id.textViewSignIn);
 

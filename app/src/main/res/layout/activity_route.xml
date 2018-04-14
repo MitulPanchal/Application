@@ -147,4 +147,5 @@
         android:layout_toEndOf="@+id/textViewFare"
         android:layout_toRightOf="@+id/textViewFare"
         android:textSize="24sp" />
+
 </RelativeLayout>

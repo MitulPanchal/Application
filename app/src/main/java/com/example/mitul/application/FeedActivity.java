@@ -20,6 +20,8 @@ public class FeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         final RatingBar ratingBar = findViewById(R.id.ratingBar);
         final TextView textView = findViewById(R.id.textViewFeedback);
         final EditText feedback = findViewById(R.id.editTextFeedback);
