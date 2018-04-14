@@ -1,8 +1,8 @@
 package com.example.mitul.application;
 
 public class StationInfo {
-    int id;
-    String stationName;
+    private int id;
+    private String stationName;
 
     public StationInfo(int id, String stationName){
         this.id = id;
