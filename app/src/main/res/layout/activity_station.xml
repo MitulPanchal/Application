@@ -6,9 +6,15 @@
     android:layout_height="match_parent"
     tools:context="com.example.mitul.application.StationActivity">
 
-    <ListView
-        android:id="@+id/listViewStation"
+    <!--<ListView-->
+        <!--android:id="@+id/listViewStation"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerViewStation">
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>
