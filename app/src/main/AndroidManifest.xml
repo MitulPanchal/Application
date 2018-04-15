@@ -42,14 +42,31 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".LoginActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".RegisterActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".SearchActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".FeedActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".AboutActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".StationActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".RouteActivity" android:parentActivityName=".SearchActivity"/>
-        <activity android:name=".FareActivity" android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".RegisterActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SearchActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".FeedActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AboutActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".StationActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".RouteActivity"
+            android:parentActivityName=".SearchActivity" />
+        <activity
+            android:name=".FareActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".TicketActivity"></activity>
     </application>
 
 </manifest>

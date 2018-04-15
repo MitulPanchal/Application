@@ -43,6 +43,13 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
             super(itemView);
 
             list_station = itemView.findViewById(R.id.stationList_text);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO Display all bus for this station.
+                }
+            });
         }
     }
 }

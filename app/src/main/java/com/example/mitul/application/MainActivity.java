@@ -1,13 +1,20 @@
 package com.example.mitul.application;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -52,7 +59,10 @@ public class MainActivity extends AppCompatActivity
     List<StationInfo> stationData = new ArrayList<StationInfo>();
     DataHelper dataHelper;
     LinearLayout stationContainer;
+    private ConstraintLayout rootLayout;
 
+    private int REQUEST_LOCATION = 1;
+    private int REQUEST_PERMISSION_SETTING = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +70,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        rootLayout = findViewById(R.id.rootMainLayout);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -180,6 +191,10 @@ public class MainActivity extends AppCompatActivity
                 Intent intentFare = new Intent(this, FareActivity.class);
                 startActivity(intentFare);
                 break;
+
+            case R.id.ticket:
+                startActivity(new Intent(this, TicketActivity.class));
+                break;
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -191,10 +206,22 @@ public class MainActivity extends AppCompatActivity
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
 
-        Location location = new Location("");
-        LatLng my = new LatLng(location.getLatitude(),location.getLongitude());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+            } else {
+                addMarkers();
+            }
+        } else {
+            addMarkers();
+        }
+    }
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    private void addMarkers() {
+        Location location = new Location("");
+        LatLng my = new LatLng(location.getLatitude(), location.getLongitude());
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -231,7 +258,7 @@ public class MainActivity extends AppCompatActivity
         LatLng station5 = new LatLng(21.183424,72.830657);
         mGoogleMap.addMarker(new MarkerOptions().position(station5).title("Udhna Darwaja"));
 
-            LatLng stayion6 = new LatLng(21.144093, 72.848720);
+        LatLng stayion6 = new LatLng(21.144093, 72.848720);
         mGoogleMap.addMarker(new MarkerOptions().position(stayion6).title("Udhna"));
 
         LatLng station7 = new LatLng(21.148576, 72.806491);
@@ -302,6 +329,52 @@ public class MainActivity extends AppCompatActivity
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(latLng);
             mGoogleMap.moveCamera(cameraUpdate);
             mGoogleMap.animateCamera(cameraUpdate);*/
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if (requestCode == REQUEST_LOCATION) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    addMarkers();
+                }
+                else if (grantResults[i] == PackageManager.PERMISSION_DENIED)
+                {
+                    if (shouldShowRequestPermissionRationale(permissions[i])) {
+                        Toast.makeText(MainActivity.this, "Permission Required", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Snackbar.make(rootLayout, "This Permission is required", Snackbar.LENGTH_INDEFINITE)
+                                .setActionTextColor(Color.RED)
+                                .setAction("Settings", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                        Uri uri =  Uri.fromParts("package", getPackageName(), null);
+                                        intent.setData(uri);
+                                        startActivityForResult(intent, REQUEST_PERMISSION_SETTING);
+                                    }
+                                })
+                                .show();
+                    }
+                }
+            }
+        }
+        else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_PERMISSION_SETTING && (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)){
+            addMarkers();
         }
     }
 }
