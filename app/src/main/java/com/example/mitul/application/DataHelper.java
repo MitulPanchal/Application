@@ -157,18 +157,18 @@ public class DataHelper extends SQLiteOpenHelper {
 
     }
 
-    public int longitudeStation(String _StationName_){
+    public double longitudeStation(String _StationName_){
         sqLiteDatabase = this.getReadableDatabase();
         String query = "select station_name,longitude from station";
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
 
-        int _longitudeStation = 0;
+        double _longitudeStation = 0;
         String _StationName;
         if(cursor.moveToFirst()){
             do{
                 _StationName = cursor.getString(0);
                 if(_StationName.equals(_StationName_)){
-                    _longitudeStation = cursor.getInt(1);
+                    _longitudeStation = cursor.getDouble(1);
                     break;
                 }
             }while(cursor.moveToNext());
@@ -177,18 +177,18 @@ public class DataHelper extends SQLiteOpenHelper {
         return _longitudeStation;
     }
 
-    public int latitudeStation(String _StationName_){
+    public double latitudeStation(String _StationName_){
         sqLiteDatabase = this.getReadableDatabase();
         String query = "select station_name,latitude from station";
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
 
-        int _latitudeStation = 0;
+        double _latitudeStation = 0;
         String _StationName;
         if(cursor.moveToFirst()){
             do{
                 _StationName = cursor.getString(0);
                 if(_StationName.equals(_StationName_)){
-                    _latitudeStation = cursor.getInt(1);
+                    _latitudeStation = cursor.getDouble(1);
                     break;
                 }
             }while(cursor.moveToNext());

@@ -60,11 +60,6 @@ public class FareActivity extends AppCompatActivity {
 
                 if(_source_.equals(source) && _destination_.equals(destination)) {
                     Toast.makeText(FareActivity.this, "Route Found", Toast.LENGTH_LONG).show();
-                    /*
-                    Intent intent = new Intent(FareActivity.this, AboutActivity.class);
-                    intent.putExtra("source", source);
-                    intent.putExtra("destination", destination);
-                    startActivity(intent);*/
                     Dialog dialog = new Dialog(FareActivity.this);
                     dialog.show();
                 }

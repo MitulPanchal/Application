@@ -154,8 +154,7 @@ public class RouteActivity extends AppCompatActivity
         markerOptions.title("Destination");
         markerOptions.snippet("Distance: " +results[0]/1000 + "km" );
         mGoogleMap.addMarker(markerOptions);
-        String distance = String.valueOf(results[0]/1000);
-        textView4.setText(distance+ " km");
+        
 
        drawline(latitudeSource+","+longitudeSource, end_latitude+","+end_longitude);
     }
