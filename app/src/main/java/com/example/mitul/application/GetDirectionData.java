@@ -47,7 +47,6 @@ public class GetDirectionData extends AsyncTask<Object,String,String> {
         DataParser parser = new DataParser();
         directionsList = parser.parseDirections(s);
         displayDirection(directionsList);
-
     }
 
     public void displayDirection(String[] directionsList)

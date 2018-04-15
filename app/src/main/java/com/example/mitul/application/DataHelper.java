@@ -18,7 +18,7 @@ import java.util.List;
 public class DataHelper extends SQLiteOpenHelper {
 
     private static String DB_NAME = "mydb.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
     String DB_PATH = null;
     private final Context context;
     private SQLiteDatabase sqLiteDatabase;
@@ -46,6 +46,7 @@ public class DataHelper extends SQLiteOpenHelper {
         else{
             this.getReadableDatabase();
             try{
+                Log.d("TAG","Database Copy Successfully");
                 copyDatabase();
             }
             catch (IOException e){
@@ -113,23 +114,6 @@ public class DataHelper extends SQLiteOpenHelper {
         return temp;
     }
 
-
-    public String[] AllStation(){
-        sqLiteDatabase = this.getReadableDatabase();
-        String[] stationList  = null;
-        String query = "select station_name from station";
-        Cursor cursor = sqLiteDatabase.rawQuery(query,null);
-
-        if(cursor.moveToFirst()){
-            int i=0;
-            do{
-                stationList[i] = cursor.getString(0);
-                i++;
-            }while (cursor.moveToNext());
-        }
-        return stationList;
-    }
-
     public String sourceStation(String _sourceStation_){
         sqLiteDatabase = this.getReadableDatabase();
         String query = "select source_station from route";
@@ -173,18 +157,18 @@ public class DataHelper extends SQLiteOpenHelper {
 
     }
 
-    public int longitudeStation(String _StationName_){
+    public double longitudeStation(String _StationName_){
         sqLiteDatabase = this.getReadableDatabase();
         String query = "select station_name,longitude from station";
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
 
-        int _longitudeStation = 0;
+        double _longitudeStation = 0;
         String _StationName;
         if(cursor.moveToFirst()){
             do{
                 _StationName = cursor.getString(0);
                 if(_StationName.equals(_StationName_)){
-                    _longitudeStation = cursor.getInt(1);
+                    _longitudeStation = cursor.getDouble(1);
                     break;
                 }
             }while(cursor.moveToNext());
@@ -193,18 +177,18 @@ public class DataHelper extends SQLiteOpenHelper {
         return _longitudeStation;
     }
 
-    public int latitudeStation(String _StationName_){
+    public double latitudeStation(String _StationName_){
         sqLiteDatabase = this.getReadableDatabase();
         String query = "select station_name,latitude from station";
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
 
-        int _latitudeStation = 0;
+        double _latitudeStation = 0;
         String _StationName;
         if(cursor.moveToFirst()){
             do{
                 _StationName = cursor.getString(0);
                 if(_StationName.equals(_StationName_)){
-                    _latitudeStation = cursor.getInt(1);
+                    _latitudeStation = cursor.getDouble(1);
                     break;
                 }
             }while(cursor.moveToNext());
@@ -221,7 +205,7 @@ public class DataHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (newVersion > oldVersion){
+        if (newVersion >= oldVersion){
             try{
                 copyDatabase();
             }
