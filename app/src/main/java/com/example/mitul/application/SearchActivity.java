@@ -19,6 +19,9 @@ public class SearchActivity extends AppCompatActivity {
 
     List<SearchInfo> stationData = new ArrayList<>();
     public DataHelper dataHelper;
+    String[] station ={"Bus Station","Udhna Darwaja","Majura Gate","Bhestan","Athwa Gate","Sachin","Katargam",
+            "Ghajera Circle","Prime Arcade","Vesu","Bhagad","Chawk Bazar","Navsari Bazar","Nanpura","Bhatar","Vesu","V.R.Mall",
+            "Piplod","AmbikaniKetan","Univercity Road","Sahara Darwaja","SVNIT","Railway Station"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +34,7 @@ public class SearchActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String[] COUNTRIES ={"Bus Station","Udhna Darwaja","Majura Gate","Bhestan","Athwa Gate","Sachin","Katargam",
-                "Ghajera Circle","Prime Arcade","Vesu","Bhagad","Chawk Bazar","Navsari Bazar","Nanpura","Bhatar","Vesu","V.R.Mall",
-                "Piplod","AmbikaniKetan","Univercity Road","Sahara Darwaja","SVNIT","Railway Station"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, COUNTRIES);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, station);
         sourceStation.setAdapter(adapter);
         destinationStation.setAdapter(adapter);
 

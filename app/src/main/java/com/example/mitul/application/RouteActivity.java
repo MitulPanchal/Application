@@ -97,12 +97,13 @@ public class RouteActivity extends AppCompatActivity
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
         Intent intent = getIntent();
+        dataHelper = new DataHelper(getApplicationContext());
         String source = intent.getExtras().getString("source");
         String destination = intent.getExtras().getString("destination");
-        Object[] dataTransfer = new Object[2];
 
         TextView textView1 = (TextView) findViewById(R.id.textViewDes);
         TextView textView2 = (TextView) findViewById(R.id.textViewSou);
+        TextView textView6 = findViewById(R.id.textView6);
 
         textView1.setText(destination);
         textView2.setText(source);
@@ -132,10 +133,16 @@ public class RouteActivity extends AppCompatActivity
                 build();
         mGoogleApiClient.connect();
 
-        longitudeSource = 72.830657; //dataHelper.longitudeStation(source);
-        latitudeSource = 21.183424;//dataHelper.latitudeStation(source);
-        end_longitude = 72.840729 ;//dataHelper.longitudeStation(destination);
-        end_latitude = 21.205138;//dataHelper.latitudeStation(destination);
+        latitudeSource = dataHelper.latitudeStation(source);
+        longitudeSource = dataHelper.longitudeStation(source);
+        end_latitude = dataHelper.latitudeStation(destination);
+        end_longitude = dataHelper.longitudeStation(destination);
+
+        Log.e("Latitude Source",Double.toString(latitudeSource));
+        Log.e("Longitude Source",Double.toString(longitudeSource));
+
+        Log.e("Latitude Destination",Double.toString(end_latitude));
+        Log.e("Longitude Destination",Double.toString(end_longitude));
 
         LatLng sStation = new LatLng(latitudeSource,longitudeSource);
         mGoogleMap.addMarker(new MarkerOptions().position(sStation));
@@ -180,7 +187,7 @@ public class RouteActivity extends AppCompatActivity
                     Polyline polyline = mGoogleMap.addPolyline(new PolylineOptions()
                             .addAll(latLngList)
                             .width(10)
-                            .color(Color.RED)
+                            .color(Color.BLACK)
                             .geodesic(true));
                 }
             }
@@ -234,7 +241,6 @@ public class RouteActivity extends AppCompatActivity
         googleDirectionsUrl.append("origin="+latitude+","+longitude);
         googleDirectionsUrl.append("&destination="+end_latitude+","+end_longitude);
         googleDirectionsUrl.append("&key="+"AIzaSyCAcfy-02UHSu2F6WeQ1rhQhkCr51eBL9g");
-
         return googleDirectionsUrl.toString();
     }
 
