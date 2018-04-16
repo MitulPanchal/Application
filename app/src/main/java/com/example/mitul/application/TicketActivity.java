@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.google.zxing.BarcodeFormat;
@@ -21,10 +23,19 @@ public class TicketActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Button button = findViewById(R.id.booking);
         qrView = findViewById(R.id.ticket_qrView);
 
         bitmap = encodeAsBitmap("Ticket No 56");
+
+        /*
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qrView.setVisibility(View.VISIBLE);
+            }
+        });*/
     }
 
     @Override

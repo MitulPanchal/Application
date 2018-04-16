@@ -33,6 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mitul.application.Adapter.StationAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -58,7 +59,6 @@ public class MainActivity extends AppCompatActivity
     GoogleApiClient mGoogleApiClient;
     List<StationInfo> stationData = new ArrayList<StationInfo>();
     DataHelper dataHelper;
-    LinearLayout stationContainer;
     private ConstraintLayout rootLayout;
 
     private int REQUEST_LOCATION = 1;
@@ -242,6 +242,11 @@ public class MainActivity extends AppCompatActivity
                 addOnConnectionFailedListener(this).
                 build();
         mGoogleApiClient.connect();
+
+        List<StationInfo> stationData = new ArrayList<>();
+
+        //stationData.addAll(dataHelper.getAllStation());
+
 
         LatLng station1 = new LatLng(21.168605,72.822404);
         mGoogleMap.addMarker(new MarkerOptions().position(station1));

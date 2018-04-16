@@ -29,9 +29,19 @@
     <string name="username">Mitul Panchal</string>
     <string name="email">imitulpanchal@gmail.com</string>
     <string name="fare">Total Fare : </string>
-    <string name="ss">Source : </string>
+    <string name="ss">Source:</string>
     <string name="dd">Destination : </string>
     <string name="fare_calc">Fare calculator</string>
     <string name="calculate">calculate</string>
+    <string name="booking_here">Scan this QR Code at Station for Ticket</string>
     <string name="feed">Enter Your Feedback Here</string>
+    <string name="fare_between_station">Fare Between Station</string>
+    <string name="source">Source :</string>
+    <string name="destination_station_name">Destination Station Name</string>
+    <string name="source_station_">Source Station Name</string>
+    <string name="destinstion">Destinstion:</string>
+    <string name="book_ticket">Book Ticket</string>
+    <string name="distance">Distance:</string>
+    <string name="_10">10</string>
+    <string name="_10_rs">10 Rs</string>
 </resources>

@@ -10,7 +10,7 @@
         android:id="@+id/fragmentMap"
         android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="308dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -30,7 +30,7 @@
         android:layout_below="@+id/textViewDistance"
         android:text="@string/fare"
         android:textColorLink="@color/colorPrimary"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
         android:layout_below="@+id/textViewFare"
         android:text="@string/ss"
         android:textColorLink="@color/colorPrimary"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
         android:layout_toEndOf="@+id/textView5"
         android:layout_toRightOf="@+id/textView5"
         android:text=""
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.958"
@@ -85,7 +85,7 @@
         android:layout_below="@+id/textView3"
         android:text="@string/dd"
         android:textColorLink="@color/colorPrimary"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +103,7 @@
         android:layout_toEndOf="@+id/textView5"
         android:layout_toRightOf="@+id/textView5"
         android:text=""
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.958"
@@ -119,9 +119,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/fragmentMap"
-        android:text="Distance: "
+        android:text="@string/distance"
         android:textColorLink="@color/colorPrimaryDark"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,7 +133,9 @@
     <TextView
         android:id="@+id/textView6"
         android:layout_width="176dp"
+        android:textSize="22sp"
         android:layout_height="31dp"
+        android:text="@string/_10_rs"
         android:layout_below="@+id/textViewDistance"
         android:layout_toEndOf="@+id/textViewFare"
         android:layout_toRightOf="@+id/textViewFare" />
@@ -146,6 +148,14 @@
         android:layout_above="@+id/textView6"
         android:layout_toEndOf="@+id/textViewFare"
         android:layout_toRightOf="@+id/textViewFare"
-        android:textSize="24sp" />
+        android:textSize="22sp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/book_ticket" />
 
 </RelativeLayout>

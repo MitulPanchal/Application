@@ -54,8 +54,6 @@ public class RouteActivity extends AppCompatActivity
         GoogleMap.OnMarkerClickListener,
         GoogleMap.OnMarkerDragListener{
 
-    int PROXIMITY_RADIUS = 10000;
-    double latitude, longitude;
     DataHelper dataHelper;
     LocationRequest mLocationRequest;
     GoogleMap mGoogleMap;
@@ -138,12 +136,6 @@ public class RouteActivity extends AppCompatActivity
         end_latitude = dataHelper.latitudeStation(destination);
         end_longitude = dataHelper.longitudeStation(destination);
 
-        Log.e("Latitude Source",Double.toString(latitudeSource));
-        Log.e("Longitude Source",Double.toString(longitudeSource));
-
-        Log.e("Latitude Destination",Double.toString(end_latitude));
-        Log.e("Longitude Destination",Double.toString(end_longitude));
-
         LatLng sStation = new LatLng(latitudeSource,longitudeSource);
         mGoogleMap.addMarker(new MarkerOptions().position(sStation));
 
@@ -154,7 +146,6 @@ public class RouteActivity extends AppCompatActivity
         markerOptions.title("Destination");
         markerOptions.snippet("Distance: " +results[0]/1000 + "km" );
         mGoogleMap.addMarker(markerOptions);
-        
 
        drawline(latitudeSource+","+longitudeSource, end_latitude+","+end_longitude);
     }
@@ -232,27 +223,6 @@ public class RouteActivity extends AppCompatActivity
         }
 
         return poly;
-    }
-
-    private String getDirectionsUrl()
-    {
-        StringBuilder googleDirectionsUrl = new StringBuilder("https://maps.googleapis.com/maps/api/directions/json?");
-        googleDirectionsUrl.append("origin="+latitude+","+longitude);
-        googleDirectionsUrl.append("&destination="+end_latitude+","+end_longitude);
-        googleDirectionsUrl.append("&key="+"AIzaSyCAcfy-02UHSu2F6WeQ1rhQhkCr51eBL9g");
-        return googleDirectionsUrl.toString();
-    }
-
-    private String getUrl(double latitude, double longitude, String nearbyPlace)
-    {
-        StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-        googlePlacesUrl.append("location=" + latitude + "," + longitude);
-        googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
-        googlePlacesUrl.append("&type=" + nearbyPlace);
-        googlePlacesUrl.append("&sensor=true");
-        googlePlacesUrl.append("&key=" + "AIzaSyBj-cnmMUY21M0vnIKz0k3tD3bRdyZea-Y");
-        Log.d("getUrl", googlePlacesUrl.toString());
-        return (googlePlacesUrl.toString());
     }
 
     @Override

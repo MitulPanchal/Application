@@ -66,7 +66,8 @@
         <activity
             android:name=".FareActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".TicketActivity"></activity>
+        <activity android:name=".TicketActivity"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

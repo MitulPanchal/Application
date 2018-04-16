@@ -116,7 +116,7 @@ public class DataHelper extends SQLiteOpenHelper {
 
     public String sourceStation(String _sourceStation_){
         sqLiteDatabase = this.getReadableDatabase();
-        String query = "select source_station from route";
+        String query = "select station_name from station"; // Alternate query = "select source_station from route"
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
 
         String _sourceStation = null;
@@ -134,7 +134,7 @@ public class DataHelper extends SQLiteOpenHelper {
 
     public String destinationStation(String _destinationStation_){
         sqLiteDatabase = this.getReadableDatabase();
-        String query = "select destination_station from route";
+        String query = "select station_name from station"; // Alternate query = "select destination_station from route"
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
 
         String _destinationStation = null;
