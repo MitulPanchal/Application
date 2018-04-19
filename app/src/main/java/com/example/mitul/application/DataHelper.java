@@ -127,7 +127,7 @@ public class DataHelper extends SQLiteOpenHelper {
             do{
                 BusInfo busInfo = new BusInfo(c.getInt(c.getColumnIndex("bus_no")),c.getString(c.getColumnIndex("bus_name")));
                 temp.add(busInfo);
-                Log.d("Databse","Bus data");
+                Log.d("Database","Bus data");
             }while (c.moveToNext());
             c.close();
         }

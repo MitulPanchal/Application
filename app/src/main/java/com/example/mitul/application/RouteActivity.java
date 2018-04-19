@@ -154,10 +154,16 @@ public class RouteActivity extends AppCompatActivity
         float results[] = new float[10];
         Location.distanceBetween(latitudeSource,longitudeSource,end_latitude,end_longitude,results);
         TextView textView4 = (TextView) findViewById(R.id.textView4);
+        TextView textViewFare = findViewById(R.id.textView6);
+
+
+
         markerOptions.position(new LatLng(end_latitude,end_longitude));
         markerOptions.title("Destination");
         markerOptions.snippet("Distance: " +results[0]/1000 + "km" );
-        String d = String.valueOf(results[0]/1000);
+        String d = String.valueOf((results[0]/1000));
+        String e = String.valueOf(results[0]*2);
+        textViewFare.setText(e);
         mGoogleMap.addMarker(markerOptions);
         textView4.setText(d);
        drawline(latitudeSource+","+longitudeSource, end_latitude+","+end_longitude);

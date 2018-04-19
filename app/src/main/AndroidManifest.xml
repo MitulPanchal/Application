@@ -94,9 +94,11 @@
             </intent-filter>
             -->
         </activity>
-        <activity android:name=".BusActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".BusActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".LocationActivity"></activity>
     </application>
 
 </manifest>
