@@ -44,4 +44,14 @@
     <string name="distance">Distance:</string>
     <string name="_10">10</string>
     <string name="_10_rs">10 Rs</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="track_bus_location">Track bus Location</string>
+    <string name="ticket">Ticket</string>
+    <string name="fare_">Fare</string>
+    <string name="_101">101</string>
+    <string name="bus">Bus</string>
 </resources>

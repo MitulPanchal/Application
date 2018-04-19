@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,9 +69,19 @@ public class RouteActivity extends AppCompatActivity
         setContentView(R.layout.activity_route);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         if (googleServiceAvailable()) {
             init();
         }
+
+        Button btnBook = findViewById(R.id.btnbookroute);
+        btnBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentQr = new Intent(RouteActivity.this, TicketActivity.class);
+                startActivity(intentQr);
+            }
+        });
     }
 
     public boolean googleServiceAvailable() {
@@ -145,8 +157,9 @@ public class RouteActivity extends AppCompatActivity
         markerOptions.position(new LatLng(end_latitude,end_longitude));
         markerOptions.title("Destination");
         markerOptions.snippet("Distance: " +results[0]/1000 + "km" );
+        String d = String.valueOf(results[0]/1000);
         mGoogleMap.addMarker(markerOptions);
-
+        textView4.setText(d);
        drawline(latitudeSource+","+longitudeSource, end_latitude+","+end_longitude);
     }
 

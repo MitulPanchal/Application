@@ -21,141 +21,225 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textViewFare"
-        android:layout_width="138dp"
-        android:layout_height="31dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textViewDistance"
-        android:text="@string/fare"
-        android:textColorLink="@color/colorPrimary"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.743" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="189dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textViewFare"
-        android:text="@string/ss"
-        android:textColorLink="@color/colorPrimary"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.847" />
-
-
-    <TextView
-        android:id="@+id/textViewSou"
-        android:layout_width="176dp"
-        android:layout_height="32dp"
-        android:layout_alignBaseline="@+id/textView3"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_toEndOf="@+id/textView5"
-        android:layout_toRightOf="@+id/textView5"
-        android:text=""
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.958"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.866" />
-
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="138dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView3"
-        android:text="@string/dd"
-        android:textColorLink="@color/colorPrimary"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.966" />
-
-    <TextView
-        android:id="@+id/textViewDes"
-        android:layout_width="176dp"
-        android:layout_height="32dp"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
-        android:layout_toEndOf="@+id/textView5"
-        android:layout_toRightOf="@+id/textView5"
-        android:text=""
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.958"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.982" />
-
-
-    <TextView
-        android:id="@+id/textViewDistance"
-        android:layout_width="176dp"
-        android:layout_height="32dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/fragmentMap"
-        android:text="@string/distance"
-        android:textColorLink="@color/colorPrimaryDark"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.958"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.982" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="176dp"
-        android:textSize="22sp"
-        android:layout_height="31dp"
-        android:text="@string/_10_rs"
-        android:layout_below="@+id/textViewDistance"
-        android:layout_toEndOf="@+id/textViewFare"
-        android:layout_toRightOf="@+id/textViewFare" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="176dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="5dp"
-        android:layout_above="@+id/textView6"
-        android:layout_toEndOf="@+id/textViewFare"
-        android:layout_toRightOf="@+id/textViewFare"
-        android:textSize="22sp" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/bus_details_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/fragmentMap"
+        android:layout_marginTop="8dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/book_ticket" />
+        android:layout_alignParentStart="true"
+        android:overScrollMode="always"
+        android:padding="10dp"
+        android:layout_alignParentLeft="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textViewFare"
+                android:layout_width="138dp"
+                android:layout_height="31dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textViewDistance"
+                android:text="@string/fare"
+                android:textColorLink="@color/colorPrimary"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.743" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="189dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textViewFare"
+                android:text="@string/ss"
+                android:textColorLink="@color/colorPrimary"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.847" />
+
+
+            <TextView
+                android:id="@+id/textViewSou"
+                android:layout_width="176dp"
+                android:layout_height="32dp"
+                android:layout_alignBaseline="@+id/textView3"
+                android:layout_alignBottom="@+id/textView3"
+                android:layout_toEndOf="@+id/textView5"
+                android:layout_toRightOf="@+id/textView5"
+                android:text=""
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.958"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.866" />
+
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="138dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView3"
+                android:text="@string/dd"
+                android:textColorLink="@color/colorPrimary"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.966" />
+
+            <TextView
+                android:id="@+id/textViewDes"
+                android:layout_width="176dp"
+                android:layout_height="32dp"
+                android:layout_alignBaseline="@+id/textView5"
+                android:layout_alignBottom="@+id/textView5"
+                android:layout_toEndOf="@+id/textView5"
+                android:layout_toRightOf="@+id/textView5"
+                android:text=""
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.958"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.982" />
+
+
+            <TextView
+                android:id="@+id/textViewDistance"
+                android:layout_width="176dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/fragmentMap"
+                android:text="@string/distance"
+                android:textColorLink="@color/colorPrimaryDark"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.958"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.982"
+                tools:ignore="NotSibling" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="176dp"
+                android:layout_height="31dp"
+                android:layout_below="@+id/textViewDistance"
+                android:layout_toEndOf="@+id/textViewFare"
+                android:layout_toRightOf="@+id/textViewFare"
+                android:text="@string/_10_rs"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                android:layout_above="@+id/textView6"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/textViewFare"
+                android:layout_toRightOf="@+id/textViewFare"
+                android:textSize="22sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="24sp"
+                android:id="@+id/buslist"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView5"
+                android:text="List of Bus between Stations:"
+                android:textStyle="bold"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:id="@+id/station1"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/buslist"
+                android:text="101 - Udhna Darwaja - Bhestan"
+                android:layout_alignParentLeft="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:id="@+id/station2"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/station1"
+                android:text="112 - Railway Station - Sachin"
+                android:layout_alignParentLeft="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:layout_alignParentStart="true"
+                android:id="@+id/station3"
+                android:layout_below="@+id/station2"
+                android:text="105 - Varaccha - Adajan"
+                android:layout_alignParentLeft="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:id="@+id/station4"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/station3"
+                android:text="117 - Chowk Bazar - Bhestan"
+                android:layout_alignParentLeft="true" />
+            <Button
+                android:id="@+id/btnbookroute"
+                android:layout_marginTop="220dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+
+                android:text="@string/book_ticket"
+                android:layout_below="@id/textViewDes"/>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
 
 </RelativeLayout>
