@@ -74,7 +74,8 @@ public class FareActivity extends AppCompatActivity {
 
                     }
                     else{
-                        fare = "Total Amount is: 10";
+                         String amount =
+                        fare = "Total Amount is: ";
                     }
                     textView13.setText(fare);
                     mBuilder.setView(mView);
