@@ -8,9 +8,6 @@
             android:id="@+id/nav_login"
             android:title="@string/Login" />
         <item
-            android:id="@+id/nav_register"
-            android:title="@string/register" />
-        <item
             android:id="@+id/nav_search"
             android:title="@string/search" />
         <item
@@ -18,10 +15,13 @@
             android:title="@string/all_station" />
         <item
             android:id="@+id/fare"
-            android:title="Fare"/>
+            android:title="@string/fare_"/>
         <item
             android:id="@+id/ticket"
-            android:title="Ticket"/>
+            android:title="@string/ticket"/>
+        <item
+            android:id="@+id/nav_bus"
+            android:title="@string/track_bus_location" />
         <item
             android:id="@+id/nav_feedback"
             android:title="@string/str_feedback" />

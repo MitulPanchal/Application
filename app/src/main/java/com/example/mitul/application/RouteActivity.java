@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,8 +56,6 @@ public class RouteActivity extends AppCompatActivity
         GoogleMap.OnMarkerClickListener,
         GoogleMap.OnMarkerDragListener{
 
-    int PROXIMITY_RADIUS = 10000;
-    double latitude, longitude;
     DataHelper dataHelper;
     LocationRequest mLocationRequest;
     GoogleMap mGoogleMap;
@@ -69,9 +69,19 @@ public class RouteActivity extends AppCompatActivity
         setContentView(R.layout.activity_route);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         if (googleServiceAvailable()) {
             init();
         }
+
+        Button btnBook = findViewById(R.id.btnbookroute);
+        btnBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentQr = new Intent(RouteActivity.this, TicketActivity.class);
+                startActivity(intentQr);
+            }
+        });
     }
 
     public boolean googleServiceAvailable() {
@@ -138,12 +148,6 @@ public class RouteActivity extends AppCompatActivity
         end_latitude = dataHelper.latitudeStation(destination);
         end_longitude = dataHelper.longitudeStation(destination);
 
-        Log.e("Latitude Source",Double.toString(latitudeSource));
-        Log.e("Longitude Source",Double.toString(longitudeSource));
-
-        Log.e("Latitude Destination",Double.toString(end_latitude));
-        Log.e("Longitude Destination",Double.toString(end_longitude));
-
         LatLng sStation = new LatLng(latitudeSource,longitudeSource);
         mGoogleMap.addMarker(new MarkerOptions().position(sStation));
 
@@ -153,9 +157,9 @@ public class RouteActivity extends AppCompatActivity
         markerOptions.position(new LatLng(end_latitude,end_longitude));
         markerOptions.title("Destination");
         markerOptions.snippet("Distance: " +results[0]/1000 + "km" );
+        String d = String.valueOf(results[0]/1000);
         mGoogleMap.addMarker(markerOptions);
-        
-
+        textView4.setText(d);
        drawline(latitudeSource+","+longitudeSource, end_latitude+","+end_longitude);
     }
 
@@ -232,27 +236,6 @@ public class RouteActivity extends AppCompatActivity
         }
 
         return poly;
-    }
-
-    private String getDirectionsUrl()
-    {
-        StringBuilder googleDirectionsUrl = new StringBuilder("https://maps.googleapis.com/maps/api/directions/json?");
-        googleDirectionsUrl.append("origin="+latitude+","+longitude);
-        googleDirectionsUrl.append("&destination="+end_latitude+","+end_longitude);
-        googleDirectionsUrl.append("&key="+"AIzaSyCAcfy-02UHSu2F6WeQ1rhQhkCr51eBL9g");
-        return googleDirectionsUrl.toString();
-    }
-
-    private String getUrl(double latitude, double longitude, String nearbyPlace)
-    {
-        StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-        googlePlacesUrl.append("location=" + latitude + "," + longitude);
-        googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
-        googlePlacesUrl.append("&type=" + nearbyPlace);
-        googlePlacesUrl.append("&sensor=true");
-        googlePlacesUrl.append("&key=" + "AIzaSyBj-cnmMUY21M0vnIKz0k3tD3bRdyZea-Y");
-        Log.d("getUrl", googlePlacesUrl.toString());
-        return (googlePlacesUrl.toString());
     }
 
     @Override

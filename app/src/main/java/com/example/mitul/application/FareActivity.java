@@ -1,5 +1,6 @@
 package com.example.mitul.application;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -60,8 +61,26 @@ public class FareActivity extends AppCompatActivity {
 
                 if(_source_.equals(source) && _destination_.equals(destination)) {
                     Toast.makeText(FareActivity.this, "Route Found", Toast.LENGTH_LONG).show();
-                    Dialog dialog = new Dialog(FareActivity.this);
+                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(FareActivity.this);
+                    View mView = getLayoutInflater().inflate(R.layout.dialog_fare, null);
+                    TextView textView10 = (TextView) mView.findViewById(R.id.textView10);
+                    TextView textView12 = (TextView) mView.findViewById(R.id.textView12);
+                    TextView textView13 = (TextView) mView.findViewById(R.id.textView13);
+                    textView10.setText(source);
+                    textView12.setText(destination);
+                    String fare = null;
+                    if(source.equals(destination)){
+                        fare = "Total Amount is: 0";
+
+                    }
+                    else{
+                        fare = "Total Amount is: 10";
+                    }
+                    textView13.setText(fare);
+                    mBuilder.setView(mView);
+                    AlertDialog dialog = mBuilder.create();
                     dialog.show();
+
                 }
                 else {
                     Toast.makeText(FareActivity.this, "Route not Found", Toast.LENGTH_LONG).show();

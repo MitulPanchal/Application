@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -34,11 +35,16 @@ public class SearchActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        dataHelper = new DataHelper(getApplicationContext());
+        List<StationInfo> StationSuggestion = new ArrayList<>();
+        StationSuggestion.addAll(dataHelper.getAllStation());
+
+        // String data = (String[]) StationSuggestion.toArray(new String[StationSuggestion.size()]);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, station);
         sourceStation.setAdapter(adapter);
         destinationStation.setAdapter(adapter);
 
-        dataHelper = new DataHelper(getApplicationContext());
+
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override

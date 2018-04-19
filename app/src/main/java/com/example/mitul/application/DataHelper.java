@@ -18,7 +18,7 @@ import java.util.List;
 public class DataHelper extends SQLiteOpenHelper {
 
     private static String DB_NAME = "mydb.db";
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 3;
     String DB_PATH = null;
     private final Context context;
     private SQLiteDatabase sqLiteDatabase;
@@ -40,6 +40,7 @@ public class DataHelper extends SQLiteOpenHelper {
         boolean dbExist = checkDatabase();
 
         if(dbExist){
+            copyDatabase();
             Log.d("TAG", "Database Already exist");
             //openDatabase();
         }
@@ -114,9 +115,32 @@ public class DataHelper extends SQLiteOpenHelper {
         return temp;
     }
 
+    public List<BusInfo> getAllBus(){
+        List<BusInfo> temp = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c;
+        try {
+            c = db.rawQuery("select bus_no,bus_name from bus",null);
+            if(c == null) return null;
+
+            c.moveToFirst();
+            do{
+                BusInfo busInfo = new BusInfo(c.getInt(c.getColumnIndex("bus_no")),c.getString(c.getColumnIndex("bus_name")));
+                temp.add(busInfo);
+                Log.d("Databse","Bus data");
+            }while (c.moveToNext());
+            c.close();
+        }
+        catch (Exception e){
+
+        }
+        db.close();
+        return temp;
+    }
+
     public String sourceStation(String _sourceStation_){
         sqLiteDatabase = this.getReadableDatabase();
-        String query = "select source_station from route";
+        String query = "select station_name from station"; // Alternate query = "select source_station from route"
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
 
         String _sourceStation = null;
@@ -134,7 +158,7 @@ public class DataHelper extends SQLiteOpenHelper {
 
     public String destinationStation(String _destinationStation_){
         sqLiteDatabase = this.getReadableDatabase();
-        String query = "select destination_station from route";
+        String query = "select station_name from station"; // Alternate query = "select destination_station from route"
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
 
         String _destinationStation = null;

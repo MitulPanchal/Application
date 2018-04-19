@@ -29,10 +29,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mitul.application.Adapter.StationAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -56,9 +58,7 @@ public class MainActivity extends AppCompatActivity
 
     GoogleMap mGoogleMap;
     GoogleApiClient mGoogleApiClient;
-    List<StationInfo> stationData = new ArrayList<StationInfo>();
     DataHelper dataHelper;
-    LinearLayout stationContainer;
     private ConstraintLayout rootLayout;
 
     private int REQUEST_LOCATION = 1;
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         rootLayout = findViewById(R.id.rootMainLayout);
@@ -89,6 +90,20 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headView = navigationView.getHeaderView(0);
+        TextView profileName = (TextView) headView.findViewById(R.id.username);
+        profileName.setText("mitulpanchal@gmail.com");
+
+        //profileName.setTextColor(0xff0000ff);
+
+        LinearLayout header = (LinearLayout) findViewById(R.id.header);
+        headView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
         if (googleServiceAvailable()) {
             init();
         } else {
@@ -195,6 +210,10 @@ public class MainActivity extends AppCompatActivity
             case R.id.ticket:
                 startActivity(new Intent(this, TicketActivity.class));
                 break;
+
+            case R.id.nav_bus:
+                startActivity(new Intent(this, BusActivity.class));
+                break;
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -242,6 +261,11 @@ public class MainActivity extends AppCompatActivity
                 addOnConnectionFailedListener(this).
                 build();
         mGoogleApiClient.connect();
+
+        List<StationInfo> stationData = new ArrayList<>();
+
+        //stationData.addAll(dataHelper.getAllStation());
+
 
         LatLng station1 = new LatLng(21.168605,72.822404);
         mGoogleMap.addMarker(new MarkerOptions().position(station1));
