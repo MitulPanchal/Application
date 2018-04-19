@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -29,12 +30,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mitul.application.Adapter.StationAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -58,8 +57,12 @@ public class MainActivity extends AppCompatActivity
 
     GoogleMap mGoogleMap;
     GoogleApiClient mGoogleApiClient;
+    List<StationInfo> stationData = new ArrayList<StationInfo>();
     DataHelper dataHelper;
+    LinearLayout stationContainer;
     private ConstraintLayout rootLayout;
+    private SharedPreferences sharedPreferences;
+    NavigationView navigationView;
 
     private int REQUEST_LOCATION = 1;
     private int REQUEST_PERMISSION_SETTING = 500;
@@ -68,10 +71,11 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         rootLayout = findViewById(R.id.rootMainLayout);
+
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -87,23 +91,40 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         View headView = navigationView.getHeaderView(0);
-        TextView profileName = (TextView) headView.findViewById(R.id.username);
-        profileName.setText("mitulpanchal@gmail.com");
+        TextView profileName = headView.findViewById(R.id.username);
+
+
+        sharedPreferences = getSharedPreferences("loginPref", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "-1");
+
+        Menu nav_menu = navigationView.getMenu();
+        if (!username.equals("-1")){
+            profileName.setText(username);
+            nav_menu.findItem(R.id.nav_login).setVisible(false);
+            nav_menu.findItem(R.id.nav_logout).setVisible(true);
+        }
+        else {
+            nav_menu.findItem(R.id.nav_login).setVisible(true);
+            nav_menu.findItem(R.id.nav_logout).setVisible(false);
+        }
+
+
 
         //profileName.setTextColor(0xff0000ff);
 
         LinearLayout header = (LinearLayout) findViewById(R.id.header);
-        headView.setOnClickListener(new View.OnClickListener() {
+        profileName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
                 startActivity(intent);
             }
         });
+
         if (googleServiceAvailable()) {
             init();
         } else {
@@ -177,11 +198,6 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intentLogin);
                 break;
 
-            case R.id.nav_register:
-                Intent intentRegister = new Intent(this, RegisterActivity.class);
-                startActivity(intentRegister);
-                break;
-
             case R.id.nav_search:
                 Intent intentSearch = new Intent(this, SearchActivity.class);
                 startActivity(intentSearch);
@@ -207,12 +223,15 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intentFare);
                 break;
 
-            case R.id.ticket:
-                startActivity(new Intent(this, TicketActivity.class));
-                break;
-
             case R.id.nav_bus:
                 startActivity(new Intent(this, BusActivity.class));
+                break;
+
+            case R.id.nav_logout:
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
         }
 
@@ -261,11 +280,6 @@ public class MainActivity extends AppCompatActivity
                 addOnConnectionFailedListener(this).
                 build();
         mGoogleApiClient.connect();
-
-        List<StationInfo> stationData = new ArrayList<>();
-
-        //stationData.addAll(dataHelper.getAllStation());
-
 
         LatLng station1 = new LatLng(21.168605,72.822404);
         mGoogleMap.addMarker(new MarkerOptions().position(station1));
