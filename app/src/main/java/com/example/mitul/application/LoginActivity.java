@@ -1,6 +1,8 @@
 package com.example.mitul.application;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 public class LoginActivity extends AppCompatActivity {
 
     public DatabaseHelper databaseHelper;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
         final EditText password = findViewById(R.id.editTextPassword);
         final Button buttonLogin = findViewById(R.id.buttonSignIn);
         final TextView textViewSignUp = findViewById(R.id.textViewSignUp);
+
+        sharedPreferences = getSharedPreferences("loginPref", Context.MODE_PRIVATE);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         databaseHelper  = new DatabaseHelper(LoginActivity.this);
@@ -45,6 +50,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 String _password_ = databaseHelper.searchPassword(_email);
                 if(_password.equals(_password_)){
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("username", _email);
+                    editor.apply();
+
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 }

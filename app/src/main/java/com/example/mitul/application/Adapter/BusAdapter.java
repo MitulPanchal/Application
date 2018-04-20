@@ -1,5 +1,6 @@
 package com.example.mitul.application.Adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mitul.application.BusInfo;
+import com.example.mitul.application.LocationActivity;
 import com.example.mitul.application.R;
 
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder>{
     public class BusViewHolder extends RecyclerView.ViewHolder {
         TextView list_station;
         TextView thai_gayu;
-        public BusViewHolder(View itemView) {
+        public BusViewHolder(final View itemView) {
             super(itemView);
 
             list_station = itemView.findViewById(R.id.busList_text);
@@ -50,6 +52,8 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder>{
                 @Override
                 public void onClick(View v) {
                     //TODO Display all bus for this station.
+
+//                    itemView.getContext().startActivity(new Intent(itemView.getContext(), LocationActivity.class));
                 }
             });
         }

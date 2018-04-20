@@ -17,9 +17,6 @@
             android:id="@+id/fare"
             android:title="@string/fare_"/>
         <item
-            android:id="@+id/ticket"
-            android:title="@string/ticket"/>
-        <item
             android:id="@+id/nav_bus"
             android:title="@string/track_bus_location" />
         <item
@@ -28,5 +25,8 @@
         <item
             android:id="@+id/nav_about"
             android:title="@string/str_about" />
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout"/>
     </group>
 </menu>

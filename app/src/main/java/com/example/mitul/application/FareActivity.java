@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class FareActivity extends AppCompatActivity {
 
 
@@ -69,13 +71,18 @@ public class FareActivity extends AppCompatActivity {
                     textView10.setText(source);
                     textView12.setText(destination);
                     String fare = null;
+
+                    Random rand = new Random();
+
+                    int  n = rand.nextInt(25) + 10;
+
                     if(source.equals(destination)){
                         fare = "Total Amount is: 0";
 
                     }
                     else{
                          String amount =
-                        fare = "Total Amount is: ";
+                        fare = "Total Amount is: " +n;
                     }
                     textView13.setText(fare);
                     mBuilder.setView(mView);

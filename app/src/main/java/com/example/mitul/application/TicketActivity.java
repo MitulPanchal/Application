@@ -1,5 +1,7 @@
 package com.example.mitul.application;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +29,10 @@ public class TicketActivity extends AppCompatActivity {
         //Button button = findViewById(R.id.booking);
         qrView = findViewById(R.id.ticket_qrView);
 
-        bitmap = encodeAsBitmap("Ticket No 56");
+        SharedPreferences sharedPreferences = getSharedPreferences("loginPref", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "-1");
+
+        bitmap = encodeAsBitmap(username + "%"+System.currentTimeMillis()+"%"+"TICKET_NO=5");
 
         /*
         button.setOnClickListener(new View.OnClickListener() {
